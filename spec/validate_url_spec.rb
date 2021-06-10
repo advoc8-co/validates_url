@@ -16,10 +16,16 @@ RSpec.describe 'URL validation' do
   end
 
   context do
-    let!(:user) { User.new(homepage: 'https://example.test') }
+    let!(:user) { UserWithUniqUrl.new(homepage: 'https://example.test').save(validate: false) }
 
-    it do
+    it 'is not valid if the schema is different' do
+      other = UserWithUniqUrl.create(homepage: 'http://example.test')
+      expect(other).not_to be_valid
+    end
 
+    it 'is valid if the schema is different but there is a path' do
+      other = UserWithUniqUrl.create(homepage: 'http://example.test/something')
+      expect(other).to be_valid
     end
   end
 

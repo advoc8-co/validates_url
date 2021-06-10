@@ -32,5 +32,6 @@ autoload :UserWithPublicSuffix,           'resources/user_with_public_suffix'
 autoload :UserWithAcceptArray,            'resources/user_with_accept_array'
 autoload :UserWithAcceptArrayWithNil,     'resources/user_with_accept_array_with_nil'
 autoload :UserWithAcceptArrayWithBlank,   'resources/user_with_accept_array_with_blank'
+autoload :UserWithUniqUrl,                'resources/user_with_uniq_url'
 
 RSpec.configure(&:disable_monkey_patching!)
