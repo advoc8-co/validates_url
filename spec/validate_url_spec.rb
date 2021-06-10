@@ -15,20 +15,6 @@ RSpec.describe 'URL validation' do
     ActiveRecord::Base.connection.drop_table(:users)
   end
 
-  context do
-    let!(:user) { UserWithUniqUrl.new(homepage: 'https://example.test').save(validate: false) }
-
-    it 'is not valid if the schema is different' do
-      other = UserWithUniqUrl.create(homepage: 'http://example.test')
-      expect(other).not_to be_valid
-    end
-
-    it 'is valid if the schema is different but there is a path' do
-      other = UserWithUniqUrl.create(homepage: 'http://example.test/something')
-      expect(other).to be_valid
-    end
-  end
-
   context 'with regular validator' do
     let!(:user) { User.new }
 
@@ -357,6 +343,20 @@ RSpec.describe 'URL validation' do
       user.valid?
 
       expect(user.errors[:homepage]).to eq(['wrong'])
+    end
+  end
+
+  context 'with unique URL' do
+    let!(:user) { UserWithUniqUrl.new(homepage: 'https://example.test').save(validate: false) }
+
+    it 'is not valid if the schema is different' do
+      other = UserWithUniqUrl.create(homepage: 'http://example.test')
+      expect(other).not_to be_valid
+    end
+
+    it 'is valid if the schema is different but there is a path' do
+      other = UserWithUniqUrl.create(homepage: 'http://example.test/something')
+      expect(other).to be_valid
     end
   end
 end
