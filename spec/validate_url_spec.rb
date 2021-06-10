@@ -15,6 +15,14 @@ RSpec.describe 'URL validation' do
     ActiveRecord::Base.connection.drop_table(:users)
   end
 
+  context do
+    let!(:user) { User.new(homepage: 'https://example.test') }
+
+    it do
+
+    end
+  end
+
   context 'with regular validator' do
     let!(:user) { User.new }
 
