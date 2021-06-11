@@ -42,6 +42,9 @@ class Pony < ActiveRecord::Base
 
   # with Postgres array of urls, described [here](https://guides.rubyonrails.org/active_record_postgresql.html#array)
   validates :homepage, url: { accept_array: true }
+
+  # Validates the URL is unique without the scheme part
+  validates :homepage, url: { unique_url: true }
 end
 ```
 
