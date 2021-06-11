@@ -44,7 +44,7 @@ class Pony < ActiveRecord::Base
   validates :homepage, url: { accept_array: true }
 
   # Validates the URL is unique without the scheme part
-  validates :homepage, url: { uniq_url: true }
+  validates :homepage, url: { unique_url: true }
 end
 ```
 

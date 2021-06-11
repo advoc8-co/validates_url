@@ -14,7 +14,7 @@ module ActiveModel
         options.reverse_merge!(no_local: false)
         options.reverse_merge!(public_suffix: false)
         options.reverse_merge!(accept_array: false)
-        options.reverse_merge!(uniq_url: false)
+        options.reverse_merge!(unique_url: false)
 
         super(options)
       end
@@ -60,7 +60,7 @@ module ActiveModel
         valid_scheme = host && scheme && schemes.include?(scheme)
         valid_no_local = !options.fetch(:no_local) || (host && host.include?('.'))
         valid_suffix = !options.fetch(:public_suffix) || (host && PublicSuffix.valid?(host, :default_rule => nil))
-        valid_uniq = options.fetch(:uniq_url) ? url_uniq?(record, attribute, url) : true
+        valid_uniq = options.fetch(:unique_url) ? url_uniq?(record, attribute, url) : true
 
         unless valid_raw_url && valid_scheme && valid_no_local && valid_suffix && valid_uniq
           record.errors.add(attribute, options.fetch(:message), value: value)

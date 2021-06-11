@@ -354,6 +354,11 @@ RSpec.describe 'URL validation' do
       expect(other).not_to be_valid
     end
 
+    it 'is not valid if the schema is the same' do
+      other = UserWithUniqUrl.create(homepage: 'https://example.test')
+      expect(other).not_to be_valid
+    end
+
     it 'is valid if the schema is different but there is a path' do
       other = UserWithUniqUrl.create(homepage: 'http://example.test/something')
       expect(other).to be_valid
