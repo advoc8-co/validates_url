@@ -347,7 +347,16 @@ RSpec.describe 'URL validation' do
   end
 
   context 'with unique URL' do
-    let!(:user) { UserWithUniqUrl.new(homepage: 'https://example.test').save(validate: false) }
+    let(:user) { UserWithUniqUrl.new(homepage: 'https://example.test') }
+
+    before do
+      user.save(validate: false)
+    end
+
+    it 'is not valid if the schema is different and upcase' do
+      other = UserWithUniqUrl.create(homepage: 'http://EXAMPLE.TEST')
+      expect(other).not_to be_valid
+    end
 
     it 'is not valid if the schema is different' do
       other = UserWithUniqUrl.create(homepage: 'http://example.test')
