@@ -71,7 +71,7 @@ module ActiveModel
 
       # Validates the URL is unique without the schema
       def url_uniq?(record, attribute, url)
-        record.class.where("#{attribute} LIKE ?", "%#{url}").where.not(id: record.id).size.zero?
+        record.class.where("#{attribute} LIKE LOWER(?)", "%#{url}").where.not(id: record.id).size.zero?
       end
     end
 
